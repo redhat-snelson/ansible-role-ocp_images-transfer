@@ -1,0 +1,9 @@
+---
+ocp_container_tag_major: "v3.11"
+ocp_container_tag_full: "v3.11.135"
+ocp_container_tag_pod: "v3.11.98"
+ocp_container_tag_deployer: "v3.11.135"
+ocp_container_tag_etcd: "3.2.22"
+#s2i_container_tag: "v3.11.135"
+s2i_container_tag: "latest"
+

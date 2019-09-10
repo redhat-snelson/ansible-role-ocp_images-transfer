@@ -1,0 +1,43 @@
+---
+# tasks file for roles/snelson_redhat.ocp_images.transfer
+- name: Skopeo from local (OpenShift Required)
+  command:
+    argv:
+      - skopeo copy
+      - --dest-creds {{ dest_registry_user }}:{{ dest_registry_passwd }}
+      - containers-storage:{{ src_registry_url }}{{ item }}
+      - docker://{{ dest_registry_url }}{{ item }}
+  delegate_to: localhost
+  changed_when: true
+  with_items:
+    - "{{ docker_image_list_required }}"
+  tags:
+    - openshift_required
+
+- name: Skopeo from local (OpenShift Optional)
+  command:
+    argv:
+      - skopeo copy
+      - --dest-creds {{ dest_registry_user }}:{{ dest_registry_passwd }}
+      - containers-storage:{{ src_registry_url }}{{ item }}
+      - docker://{{ dest_registry_url }}{{ item }}
+  delegate_to: localhost
+  changed_when: true
+  with_items:
+    - "{{ docker_image_list_optional }}"
+  tags:
+    - openshift_optional
+
+- name: Skopeo from local (OpenShift S2I)
+  command:
+    argv:
+      - skopeo copy
+      - --dest-creds {{ dest_registry_user }}:{{ dest_registry_passwd }}
+      - containers-storage:{{ src_registry_url }}{{ item }}
+      - docker://{{ dest_registry_url }}{{ item }}
+  delegate_to: localhost
+  changed_when: true
+  with_items:
+    - "{{ docker_image_list_s2i }}"
+  tags:
+    - openshift_s2i
